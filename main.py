@@ -12,7 +12,7 @@ class LinkedList:
     self.head = Node()
 
 
-  def insert(self, value):
+  def append(self, value):
     new_node = Node(value)
     current = self.head
     if(current.data):
@@ -21,23 +21,55 @@ class LinkedList:
       current.next = new_node
     else:
       self.head = new_node
+      
 
+  def delete(self, value):
+    current = self.head
+    if current.data == value:
+      self.head = current.next
+    else:
+      while current:
+        if current.data == value:
+          break
+        prev = current
+        current = current.next
+      # if current == None:
+      #   return
+      prev.next = current.next
+      current = None
+
+  def insert(self, value, pos):
+    count = 1
+    node = Node(value)
+    current = self.head
+    if pos == 1:
+      node.next = self.head
+      self.head = node
+    while current:
+      if count+1 == pos:
+        node.next = current.next
+        current.next = node
+        return
+      else:
+        count+=1
+        current = current.next   
+  
   def printLL(self):
     current = self.head
-    while(current.next):
+    while(current):
       print(current.data)
-      print(current.next)
+      # print(current.next)
       current = current.next
-    print(current.data)
-    print(current.next)
+   
 
 
-LL = LinkedList()
-LL.insert(1)
-LL.insert(2)
-LL.insert(3)
-LL.insert(4)
-LL.insert(5)
-LL.insert(5)
+ll = LinkedList()
+ll.append(1)
+ll.append(2)
+ll.append(3)
 
-LL.printLL()
+ll.insert(4,2)
+ll.insert(5,3)
+ll.printLL()
+
+
